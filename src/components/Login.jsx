@@ -75,7 +75,7 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `http://localhost:4000/auth/google`;  // Trigger Google OAuth
+    window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`;  // Trigger Google OAuth
   };
 
   return (

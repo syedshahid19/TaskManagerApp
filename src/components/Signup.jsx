@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, NavLink, useLocation } from "react-router-dom";
+import { useNavigate, NavLink} from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import {toast} from 'react-hot-toast';
@@ -20,7 +20,6 @@ const Signup = () => {
 
   const { firstName, lastName, email, password, confirmPassword } = formData;
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
@@ -70,31 +69,8 @@ const Signup = () => {
 
   const handleGoogleSignup = () => {
     // Logic for Google signup
-    window.location.href = `http://localhost:4000/auth/google`;
+    window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`;
   };
-  // const handleGoogleSignup = () => {
-  //   const queryParams = new URLSearchParams(location.search);
-  //   const error = queryParams.get('error');
-    
-  //   console.log("Query Params:", location.search); // Log the search params
-  //   console.log("Error Param:", error); // Log the error param
-  
-  //   if (error) {
-  //     const decodedError = decodeURIComponent(error);
-  //     toast.error(decodedError);
-  
-  //     // Remove query parameters from the URL
-  //     const newUrl = `${window.location.pathname}`;
-  //     window.history.replaceState({}, '', newUrl);
-  
-  //     // Redirect to the login page
-  //     setTimeout(() => {
-  //       navigate("/login");
-  //     }, 5000); 
-  //   } else {
-  //     window.location.href = 'http://localhost:4000/auth/google';
-  //   }
-  // };
   
 
   return (
