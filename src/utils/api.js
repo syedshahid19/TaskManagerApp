@@ -13,6 +13,7 @@ const getToken = () => {
 
 const api = axios.create({
   baseURL: BASE_URL,
+  withCredentials: true,
 });
 
 const token = getToken();
