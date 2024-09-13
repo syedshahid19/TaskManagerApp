@@ -13,6 +13,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 
+// Enforce HTTPS
 app.use((req, res, next) => {
     if (req.headers['x-forwarded-proto'] !== 'https') {
         return res.redirect('https://' + req.headers.host + req.url);
@@ -20,7 +21,7 @@ app.use((req, res, next) => {
     next();
 });
 
-
+// CORS Configuration
 app.use(
 	cors({
 		origin:"https://task-manager-app-one-neon.vercel.app",
@@ -28,6 +29,7 @@ app.use(
 	})
 )
 
+// Session Configuration
 app.use(session({
     resave: false,
     saveUninitialized: true,
@@ -41,18 +43,19 @@ app.use(session({
 }));
 
 
-
+// Connect to Database
 dbConnect();
 
+// Middleware for parsing JSON requests and cookies
 app.use(express.json());
 app.use(cookieParser());
 
-
+// Route Handlers
 app.use("/api/v1", userRoutes);
 app.use("/api/v1", todoRoutes);
 app.use("/", authRoutes)
 
-
+// Start the server
 app.listen(PORT, ()=>{
     console.log(`Server Started Successfully at ${PORT}`);
 });

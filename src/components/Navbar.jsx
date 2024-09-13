@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 const Navbar = () => {
     const token = localStorage.getItem('token');
     const googleToken = Cookies.get('token');
-    console.log(googleToken);
     const navigate = useNavigate();
     const handleLogout = () =>{
         localStorage.removeItem('token');

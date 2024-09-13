@@ -43,7 +43,6 @@ const Signup = () => {
     try{
       const response = await axios.post(`${BASE_URL}/signup`, signupData);
       localStorage.setItem('userId', response.data.user._id);
-      // console.log("sign up response", response);
       const { token } = response.data;
       localStorage.setItem('authToken', token);
       toast.success("Account created successfully! Please log in.");

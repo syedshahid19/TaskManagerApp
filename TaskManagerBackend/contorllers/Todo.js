@@ -7,7 +7,6 @@ exports.createTodo = async(req, res)=>{
         const {title, description} = req.body;
         const userId = req.user.id;
         const email = req.user.email;
-        console.log(email);
         // validating that all details present or not
         if(!title || !description){
             return res.status(403).send({

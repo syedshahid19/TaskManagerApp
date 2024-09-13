@@ -26,7 +26,6 @@ const Dashboard = () => {
   const fetchTasks = async () => {
     try {
         const response = await api.get('/getTodo');
-        console.log('Fetched data:', response.data);
         const data = response.data.data; // Access the nested `data` field
         setState(prevState => ({
             ...prevState,
@@ -81,9 +80,7 @@ const Dashboard = () => {
     // Moving the task
     const [removed] = sourceColumn.splice(source.index, 1);
     removed.status = destination.droppableId; // Update task status
-    console.log("removed status",removed.status);
     destColumn.splice(destination.index, 0, removed);
-    console.log("removed",removed._id);
   
     // Update state
     setState(prevState => ({
