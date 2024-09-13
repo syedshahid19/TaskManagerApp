@@ -22,7 +22,7 @@ router.get('/auth/google/callback', (req, res, next) => {
   
         // If login successful, create JWT and redirect to dashboard
         const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '24h' });
-        res.cookie('token', token, { httpOnly: false, secure: true, sameSite: 'None' });
+        res.cookie('token', token, { httpOnly: false, secure: true, sameSite: 'None', path: '/', domain:".taskmanagerapp-0lb7.onrender.com"});
         res.redirect('https://task-manager-app-one-neon.vercel.app/dashboard');
       });
     })(req, res, next);

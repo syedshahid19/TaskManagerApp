@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 
 app.use(
 	cors({
-		origin:"*",
+		origin:"https://task-manager-app-one-neon.vercel.app",
 		credentials:true,
 	})
 )
@@ -31,8 +31,15 @@ app.use(
 app.use(session({
     resave: false,
     saveUninitialized: true,
-    secret: process.env.SESSION_SECRET 
+    secret: process.env.SESSION_SECRET ,
+    cookie: {
+        secure: true,        
+        httpOnly: false,    
+        sameSite: 'None',     
+        path:"/"
+    }
 }));
+
 
 
 dbConnect();

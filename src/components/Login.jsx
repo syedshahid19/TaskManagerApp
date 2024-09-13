@@ -4,7 +4,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { FcGoogle } from 'react-icons/fc';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-
+import Cookies from 'js-cookie';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const Login = () => {
@@ -75,7 +75,8 @@ const Login = () => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`;  // Trigger Google OAuth
+    window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`;  
+    Cookies.set('token');
   };
 
   return (
