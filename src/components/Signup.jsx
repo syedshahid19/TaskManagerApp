@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, NavLink} from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import {toast} from 'react-hot-toast';
@@ -43,7 +43,7 @@ const Signup = () => {
     try{
       const response = await axios.post(`${BASE_URL}/signup`, signupData);
       localStorage.setItem('userId', response.data.user._id);
-      console.log("sign up response", response);
+      // console.log("sign up response", response);
       const { token } = response.data;
       localStorage.setItem('authToken', token);
       toast.success("Account created successfully! Please log in.");
@@ -73,7 +73,6 @@ const Signup = () => {
     window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`;
     Cookies.set('token');
   };
-  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">

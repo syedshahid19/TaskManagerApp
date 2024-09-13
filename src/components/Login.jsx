@@ -1,46 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, NavLink, useLocation } from 'react-router-dom';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-import { FcGoogle } from 'react-icons/fc';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';
+import React, { useState } from 'react';
+import { useNavigate, NavLink } from "react-router-dom";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import axios from "axios";
+import {toast} from "react-hot-toast";
 import Cookies from 'js-cookie';
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
   const { email, password } = formData;
   const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    // Check URL for error message on component mount
-    const queryParams = new URLSearchParams(location.search);
-    const error = queryParams.get('error');
-    if (error) {
-      const decodedError = decodeURIComponent(error);
-      setErrorMessage(decodedError);
-
-      // Remove query parameters immediately after detecting the error
-      const newUrl = `${window.location.pathname}`; // Removes query params
-      window.history.replaceState({}, '', newUrl); // Update the URL without query params
-    }
-  }, [location.search]);
-
-  useEffect(() => {
-    // Show toast if there is an error message
-    if (errorMessage) {
-      toast.error(errorMessage);
-      setTimeout(() => {
-        navigate("/login", { replace: true }); // Ensure clean navigation after displaying error
-      }, 3000); // Adjust the delay as needed
-    }
-  }, [errorMessage, navigate]);
 
   const handleOnChange = (e) => {
     setFormData((prevData) => ({
@@ -49,33 +24,37 @@ const Login = () => {
     }));
   };
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
-    try {
+  
+  const handleOnSubmit = async (e)=>{
+    e.preventDefault()
+    try{
       const response = await axios.post(`${BASE_URL}/login`, {
         email,
         password,
-      });
-      localStorage.setItem('token', response.data.token);
+      })
+      localStorage.setItem("token", response.data.token);
       localStorage.setItem('userId', response.data.user._id);
-      toast.success('Logged In');
-      navigate('/dashboard');
-    } catch (error) {
+      toast.success("Logged In")
+      navigate("/dashboard");
+    }catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
-        if (error.response.data.message === 'User is not Registered with Us Please SignUp to Continue') {
-          toast.error('Email does not exist. Please sign up.');
-          navigate('/signup');
+        // Assuming 401 is used for both invalid email and invalid password
+        if (error.response.data.message === "User is not Registered with Us Please SignUp to Continue") {
+          toast.error("Email does not exist. Please sign up.");
+          navigate("/signup");
         } else {
-          toast.error('Invalid email or password. Please try again.');
+          toast.error("Invalid email or password. Please try again.");
         }
       } else {
-        toast.error('An unexpected error occurred. Please try again later.');
+        toast.error("An unexpected error occurred. Please try again later.");
       }
     }
-  };
+  }
+
 
   const handleGoogleLogin = () => {
-    window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`;  
+    // Logic for Google login
+    window.location.href = `https://taskmanagerapp-0lb7.onrender.com/auth/google`; 
     Cookies.set('token');
   };
 
@@ -106,7 +85,7 @@ const Login = () => {
           </p>
           <input
             required
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             name="password"
             value={password}
             onChange={handleOnChange}

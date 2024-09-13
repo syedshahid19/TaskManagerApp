@@ -29,14 +29,6 @@ exports.signup = async(req, res)=>{
               })
         }
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser && existingUser.authProvider === 'google') {
-        return res.status(400).json({
-            success: false,
-            message: 'This email is registered via Google. Please use Google to sign in.',
-        });
-        }
-
         // Checking of password and confim password
         if(password !== confirmPassword){
             return res.status(400).json({
@@ -71,7 +63,6 @@ exports.signup = async(req, res)=>{
             lastName,
             email,
             password: hashPassword,
-            authProvider: 'form',
         })
 
         return res.status(200).json({

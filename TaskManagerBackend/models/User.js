@@ -15,25 +15,11 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         trim:true,
-        unique: true,
     },
-    password: {
-        type: String,
-        required: function() {
-            return !this.googleId;  // Password required only for form users
-        },
+    password:{
+        type:String,
+        required:true,
     },
-    googleId: {
-        type: String,
-        required: function() {
-            return !this.password;  // Google ID required only for Google users
-        },
-    },
-    authProvider: {
-        type: String,
-        required: true,
-        enum: ['google', 'form'], // Tracks if the user signed up via Google or form
-    }
 },
 {timestamps:true})
 
